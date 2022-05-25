@@ -4,7 +4,7 @@ const Messages = ({messageList}) => {
     return (
         <>
             {messageList.map(message =>
-                <Message message={message} />
+                <Message key={message.id} message={message} />
             )}
         </>
     )

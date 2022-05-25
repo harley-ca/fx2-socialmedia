@@ -1,8 +1,8 @@
 const Message = ({message}) => {
     return (
         <>
-            <p>{message.text}</p>
-            <strong>{message.user}</strong>
+            <strong>{message.user} says</strong>
+            <p>"{message.text}"</p>
         </>
     )
 }

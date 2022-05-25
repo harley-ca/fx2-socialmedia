@@ -15,6 +15,17 @@ const App = () => {
     setLoggedInUser(username)
   }
 
+  const addMessage = (text) => {
+    const message = {
+      text: text,
+      user: loggedInUser,
+      id: messageList[messageList.length - 1].id + 1
+    }
+    setMessageList(
+      (messageList) => [...messageList, message]
+    )
+  }
+
   useEffect(
     ()=>{
       //fetch
@@ -23,13 +34,13 @@ const App = () => {
     ,
     []
   )
-
+  // Multiple conditionals because multiline ternaries look awful and I hate them
   return (
     <div >
       <h1>Social media</h1>
       <Navigation loggedInUser={loggedInUser} activateUser={activateUser} />
       { !loggedInUser && <LoginForm activateUser={activateUser}/> }
-      <MessageForm />
+      { loggedInUser && <MessageForm loggedInUser={loggedInUser} addMessage={addMessage} /> }
       <Messages messageList={messageList}/>
     </div>
   )
