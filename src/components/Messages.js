@@ -1,9 +1,11 @@
-// import Message from './Message'
+import Message from './Message'
 
-const Messages = () => {
+const Messages = ({messageList}) => {
     return (
         <>
-        
+            {messageList.map(message =>
+                <Message message={message} />
+            )}
         </>
     )
 }

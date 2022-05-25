@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-const LoginForm = () => {
+const LoginForm = ({activateUser}) => {
     const initialFormData = {
         user: "",
         password: ""
@@ -11,6 +11,7 @@ const LoginForm = () => {
         e.preventDefault()
         console.log("Submit clicked")
         console.log(formData)
+        activateUser(formData.user)
         setFormData(initialFormData)
     }
 
