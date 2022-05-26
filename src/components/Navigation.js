@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 const Navigation = ({loggedInUser, activateUser}) => {
 
     const logout = (e) => {
@@ -7,18 +9,19 @@ const Navigation = ({loggedInUser, activateUser}) => {
 
     return (
         <nav>
-            <a href="/">Home</a>
-            <a href="/">Messages</a>
+            <Link to="/messages">Home</Link>
+            <Link to="/about">About</Link>
             { loggedInUser ? 
                 <>
+                    <Link to="/messages/new">New</Link>
                     {loggedInUser}
-                    <a href="/" onClick={logout}>Logout</a>
+                    <Link to="/messages" onClick={logout}>Logout</Link>
                 </>
                 :
                 <>
                     Guest
-                    <a href="/">Login</a>
-                    <a href="/">Sign up</a>
+                    <Link to="/login">Login</Link>
+                    <Link to="/login">Sign up</Link>
                 </>
             }
         </nav>

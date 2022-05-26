@@ -4,6 +4,9 @@ import LoginForm from './LoginForm'
 import MessageForm from './MessageForm'
 import Messages from './Messages'
 import initialMessageList from '../data/message-list.json'
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom'
+import About from './About'
+import NotFound from './NotFound'
 
 
 const App = () => {
@@ -38,10 +41,22 @@ const App = () => {
   return (
     <div >
       <h1>Social media</h1>
-      <Navigation loggedInUser={loggedInUser} activateUser={activateUser} />
-      { !loggedInUser && <LoginForm activateUser={activateUser}/> }
+
+      {/* { !loggedInUser && <LoginForm activateUser={activateUser}/> }
       { loggedInUser && <MessageForm loggedInUser={loggedInUser} addMessage={addMessage} /> }
-      <Messages messageList={messageList}/>
+      <Messages messageList={messageList}/> */}
+      {/* {Wrap all the componenets involed in the app routing} */}
+      <Router>
+        <Navigation loggedInUser={loggedInUser} activateUser={activateUser} />
+        <Routes>
+          <Route path="about" element={<About />} />
+          <Route path="/" element={<Navigate to="messages" replace/>} />
+          <Route path="messages/new" element={<MessageForm />} />
+          <Route path="messages" element={<Messages messageList={messageList} />} />
+          <Route path="login" element={<LoginForm activateUser={activateUser}/>} />
+          <Route path="*" element={<NotFound />} /> {/* for everything else, there's NotFound */}
+        </Routes>
+      </Router>
     </div>
   )
 }
