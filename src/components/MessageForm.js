@@ -1,6 +1,9 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 const MessageForm = ({loggedInUser, addMessage}) => {
+
+    const navigate = useNavigate()
 
     const initialFormData = {
         text: ""
@@ -21,7 +24,7 @@ const MessageForm = ({loggedInUser, addMessage}) => {
         } else {
             addMessage(formData.text)
             console.log(formData)
-            clearMessage()
+            navigate("/messages")
         }
 
     }

@@ -1,7 +1,10 @@
+import { Link } from 'react-router-dom'
+
 const Message = ({message}) => {
     return (
         <>
-            <strong>{message.user} says</strong>
+            
+            <Link to={`${message.id}`}>View detail</Link> - <strong>{message.user} says</strong> 
             <p>"{message.text}"</p>
         </>
     )
