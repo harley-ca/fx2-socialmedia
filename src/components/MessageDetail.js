@@ -1,7 +1,10 @@
+import { useGlobalState } from '../utils/stateContext'
 import { useParams } from "react-router-dom"
 
 
-const MessageDetail = ({messageList}) => {
+const MessageDetail = () => {
+    const {store} = useGlobalState()
+    const {messageList} = store
     const params = useParams()
     console.log(params)
     const getMessage = (id) => {
