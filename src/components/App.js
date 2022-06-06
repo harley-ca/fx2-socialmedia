@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useReducer, useState } from 'react'
 import Navigation from './Navigation'
 import LoginForm from './LoginForm'
 import MessageForm from './MessageForm'
@@ -9,43 +9,69 @@ import initialMessageList from '../data/message-list.json'
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom'
 import About from './About'
 import NotFound from './NotFound'
+import { reducer } from '../utils/reducer'
 
 
 const App = () => {
+  // useReducer handles all the states in the same object
+  const initialState = {
+    messageList: [],
+    loggedInUser: ""
+  }
+  // useReducer takes two arguments
+  // reducer - a function that is executed when
+  // state
+  // it returns an array with two elements
+  // store - actually the name for the state
+  // dispatch - function that triggers the reducer function, dispatch's argument is action (from reducer)
+  const [store, dispatch] = useReducer(reducer, initialState)
+  const {messageList, loggedInUser} = store
 
-  const [loggedInUser, setLoggedInUser] = useState("")
-  const [messageList, setMessageList] = useState([])
+  //const [loggedInUser, setLoggedInUser] = useState("")
+  //const [messageList, setMessageList] = useState([])
 
   const activateUser = (username) => {
-    setLoggedInUser(username)
+    //setLoggedInUser(username)
+    dispatch({
+      type: "setLoggedInUser",
+      data: username
+    })
   }
 
   const addMessage = (text) => {
     const message = {
+      id: messageList[0].id + 1, //nextId(messageList),
       text: text,
-      user: loggedInUser,
-      id: nextId(messageList)
+      user: loggedInUser
     }
-    setMessageList(
-      (messageList) => [...messageList, message]
-    )
+    // setMessageList(
+    //   (messageList) => [...messageList, message]
+    // )
+    dispatch({
+      type: "addMessage",
+      data: message
+    })
   }
-  function nextId(data) {
-    if (data.length < 1) {
-        return 1
-    } else {
-        let x = []
-        data.forEach((element) => {
-            x.push(element.id)
-        })
-        return (Math.max(...x)+1)
-    }
-  }
+  // function nextId(data) {
+  //   if (data.length < 1) {
+  //       return 1
+  //   } else {
+  //       let x = []
+  //       data.forEach((element) => {
+  //           x.push(element.id)
+  //       })
+  //       return (Math.max(...x)+1)
+  //   }
+  // }
 
   useEffect(
     ()=>{
       //fetch
-      setMessageList(initialMessageList)
+      //setMessageList(initialMessageList)
+      dispatch({
+        type: "setMessageList",
+        data: initialMessageList
+      })
     }
     ,
     []
